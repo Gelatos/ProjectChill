@@ -30,7 +30,7 @@ public class MovementController : MonoBehaviour {
 	// movement variables
 	protected float moveAxis = 0;
 	protected bool startJump = false;
-	protected bool hasJumped = false;
+	protected bool hasJumped = true;
 	protected int currentGroundLayer = 0;
 	protected List<string> movementBlockers = new List<string> ();
 	
@@ -164,6 +164,9 @@ public class MovementController : MonoBehaviour {
 	protected virtual void GroundCheck () {
 		
 		currentGroundLayer = 0;
+		if (!hasJumped) {
+			grounded = false;
+		}
 
 		// check if the character is grounded
 		grounded = Physics2D.Linecast (transform.position, groundCheck.position, alwaysGroundLayers);
