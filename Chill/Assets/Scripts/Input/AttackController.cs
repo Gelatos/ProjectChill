@@ -24,8 +24,8 @@ public class AttackController : MonoBehaviour {
 
 	public enum AttackTrigger
 	{
-		Trigger01,
-		Trigger02
+		Attack,
+		Special
 	}
 	
 	[Serializable]
@@ -48,7 +48,7 @@ public class AttackController : MonoBehaviour {
 			atk = newAtk;
 			atk.attackName = "New Attack";
 			comboStarterID = "";
-			atkTrig = AttackTrigger.Trigger01;
+			atkTrig = AttackTrigger.Attack;
 			input = new List<AttackInput> ();
 		}
 

@@ -11,8 +11,6 @@ public class PlayerInputController : MonoBehaviour {
 
 	protected float minimumDirectionalInput = 0.1F;
 	protected float moveDirection;
-	protected float lastMoveDirection;
-	protected float dashTimer = 0.0F;
 
 	#region Getters and Setters
 	
@@ -46,17 +44,8 @@ public class PlayerInputController : MonoBehaviour {
 		moveDirection = (Input.GetAxis ("Horizontal"));
 
 		// Dash Control
-		if (Input.GetButtonDown ("Horizontal")) {
-			if (dashTimer <= 0.0F || Mathf.Sign (moveDirection) != Mathf.Sign (lastMoveDirection)) {
-				lastMoveDirection = moveDirection;
-				dashTimer = 0.5F;
-			} else {
-				dashTimer = 0.0F;
-				movementController.Dash ();
-			}
-		}
-		if (dashTimer > 0.0F) {
-			dashTimer -= Time.deltaTime;
+		if (Input.GetButton ("Dash")) {
+			movementController.Dash ();
 		}
 
 		// move the character
@@ -69,7 +58,7 @@ public class PlayerInputController : MonoBehaviour {
 
 		// ========================================= [Attack Control]
 
-		if (Input.GetButtonDown ("Fire1")) {
+		if (Input.GetButtonDown ("Attack")) {
 			// determine the directional
 			float hor = Input.GetAxis ("Horizontal");
 			float vert = Input.GetAxis ("Vertical");
@@ -88,7 +77,7 @@ public class PlayerInputController : MonoBehaviour {
 				dir = AttackController.AttackDirection.Neutral;
 			}
 
-			attackController.StartAttack (dir, AttackController.AttackTrigger.Trigger01);
+			attackController.StartAttack (dir, AttackController.AttackTrigger.Attack);
 		}
 	}
 

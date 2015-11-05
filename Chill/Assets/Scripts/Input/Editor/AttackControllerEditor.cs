@@ -277,8 +277,6 @@ public class AttackControllerEditor : Editor {
 			EditorGUILayout.EndVertical ();
 		}
 
-//		EditorGUILayout.Space ();
-
 		return atd;
 	}
 }

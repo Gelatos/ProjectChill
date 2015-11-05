@@ -31,6 +31,7 @@ public class MovementController : MonoBehaviour {
 	protected float moveAxis = 0;
 	protected bool startJump = false;
 	protected bool hasJumped = true;
+	protected bool canDash = false;
 	protected int currentGroundLayer = 0;
 	protected List<string> movementBlockers = new List<string> ();
 	
@@ -196,22 +197,27 @@ public class MovementController : MonoBehaviour {
 	}
 	
 	public virtual void Dash () {
-
-		if (grounded && movementBlockers.Count == 0) {
-			isDashing = true;
-		}
+		canDash = true;
 	}
 
 	public virtual void Move (float axis) {
 
 		if (grounded && movementBlockers.Count == 0) {
 			moveAxis = axis;
+
+			if (canDash && Mathf.Abs (rbody.velocity.x) >= (maxWalkSpeed * 0.5F)) {
+				isDashing = true;
+			} else {
+				isDashing = false;
+			}
 		}
 
 		// cancel the dash if the movement axis is too low.
 		if (isDashing && !isJumping && Mathf.Abs (axis) < 0.05F) {
 			isDashing = false;
 		}
+
+		canDash = false;
 	}
 
 	public void AddMovementBlocker (string id) {
